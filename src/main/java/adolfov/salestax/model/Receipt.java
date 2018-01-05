@@ -1,8 +1,11 @@
 package adolfov.salestax.model;
 
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+
 import java.math.BigDecimal;
 import java.util.List;
 
+@JsonPropertyOrder({"products","totalTax","total"})
 public class Receipt {
 
     private ShoppingBasket basket;
@@ -13,7 +16,7 @@ public class Receipt {
 
     public BigDecimal getTotalTax() {
         BigDecimal total = new BigDecimal(0);
-        for (Product product : this.basket.getProducts()) {
+        for (Product product : this.getProducts()) {
             total = total.add(product.getPriceWithTax().subtract(product.getPrice()));
         }
         return total;
@@ -21,13 +24,12 @@ public class Receipt {
 
     public BigDecimal getTotal() {
         BigDecimal total = new BigDecimal(0);
-        for (Product product : this.basket.getProducts()) {
+        for (Product product : this.getProducts()) {
             total = total.add(product.getPriceWithTax());
         }
         return total;
     }
 
-    //@Override
     public List<Product> getProducts(){
         return this.basket.getProducts();
     }
