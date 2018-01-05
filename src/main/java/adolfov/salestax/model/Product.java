@@ -31,11 +31,11 @@ public class Product {
     }
 
     public BigDecimal getPriceWithTax() {
-        return this.round(this.getPrice().multiply(new BigDecimal(1 + this.getTax())));
+        return this.getPrice().multiply(new BigDecimal(1 + this.getTax()));
     }
 
-    private BigDecimal round(BigDecimal price) {
-        return new BigDecimal(Math.round(price.doubleValue() * 20) / 20.0);
+    public BigDecimal getCalculatedTax() {
+        return this.getPrice().multiply(new BigDecimal(this.getTax()));
     }
 
     public String getName() {
