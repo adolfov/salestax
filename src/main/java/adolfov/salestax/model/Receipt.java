@@ -24,7 +24,7 @@ public class Receipt {
             itemsTotal = itemsTotal.multiply(new BigDecimal(item.getQuantity()));
             total = total.add(itemsTotal);
         }
-        return this.round(total);
+        return total.setScale(2, BigDecimal.ROUND_HALF_UP);
     }
 
     public BigDecimal getTotal() {
@@ -37,11 +37,7 @@ public class Receipt {
             itemsTotal = itemsTotal.multiply(new BigDecimal(item.getQuantity()));
             total = total.add(itemsTotal);
         }
-        return this.round(total);
-    }
-
-    private BigDecimal round(BigDecimal price) {
-        return new BigDecimal(Math.round(price.doubleValue() * 20) / 20.0);
+        return total.setScale(2, BigDecimal.ROUND_HALF_UP);
     }
 
     public List<BasketItem> getBasketItems(){

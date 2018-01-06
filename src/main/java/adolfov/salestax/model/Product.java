@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 import java.math.BigDecimal;
 
-@JsonPropertyOrder({"name","price","exempt","imported"})
+@JsonPropertyOrder({"name","priceWithTax"})
 public class Product {
 
     public static final float BASE_SALES_TAX = .1f;
@@ -31,11 +31,15 @@ public class Product {
     }
 
     public BigDecimal getPriceWithTax() {
-        return this.getPrice().multiply(new BigDecimal(1 + this.getTax()));
+        return this.getPrice().add(this.getCalculatedTax()).setScale(2, BigDecimal.ROUND_HALF_UP);
     }
 
     public BigDecimal getCalculatedTax() {
-        return this.getPrice().multiply(new BigDecimal(this.getTax()));
+        return this.round(this.getPrice().multiply(new BigDecimal(this.getTax()))).setScale(2, BigDecimal.ROUND_HALF_UP);
+    }
+
+    private BigDecimal round(BigDecimal price) {
+      return new BigDecimal(Math.round(price.doubleValue() * 20) / 20.0);
     }
 
     public String getName() {

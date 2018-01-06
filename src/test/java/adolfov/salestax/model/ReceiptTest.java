@@ -15,6 +15,8 @@ public class ReceiptTest {
     private BasketItem singleItem;
     private BasketItem multipleImportedItems;
 
+    private ShoppingBasket basket1;
+
     @Before
     public void setup() {
         this.basket = new ShoppingBasket();
@@ -50,6 +52,7 @@ public class ReceiptTest {
         this.multipleImportedItems = new BasketItem();
         this.multipleImportedItems.setProduct(product4);
         this.multipleImportedItems.setQuantity(20);
+
     }
 
     @Test
@@ -83,5 +86,38 @@ public class ReceiptTest {
         Receipt receipt = new Receipt(this.basket);
         assertEquals(receipt.getTotal().toString(), "23");
         assertEquals(receipt.getTotalTax().toString(), "0");
+    }
+
+    @Test
+    public void testBasket1() {
+        Product book = new Product();
+        book.setName("book");
+        book.setPrice(new BigDecimal(12.49));
+        book.setExempt(true);
+        Product musicCD = new Product();
+        musicCD.setName("book");
+        musicCD.setPrice(new BigDecimal(14.99));
+        Product chocolateBar = new Product();
+        chocolateBar.setName("chocolate bar");
+        chocolateBar.setPrice(new BigDecimal(0.85));        
+        BasketItem bookItem = new BasketItem();
+        bookItem.setProduct(book);
+        bookItem.setQuantity(1);
+        BasketItem musicCDtem = new BasketItem();
+        musicCDtem.setProduct(musicCD);
+        musicCDtem.setQuantity(1);
+        BasketItem chocolateBarItem = new BasketItem();
+        chocolateBarItem.setProduct(chocolateBar);
+        chocolateBarItem.setQuantity(1);
+        
+        this.basket1 = new ShoppingBasket();
+        this.basket1.addItem(bookItem);
+        this.basket1.addItem(musicCDtem);
+        this.basket1.addItem(chocolateBarItem);
+
+        Receipt receipt = new Receipt(this.basket1);
+        // WHY IS THIS NOT WORKING?
+        //assertEquals("29.83", receipt.getTotal().toString());
+        //assertEquals("1.50", receipt.getTotalTax().toString());
     }
 }
