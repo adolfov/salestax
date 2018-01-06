@@ -7,7 +7,7 @@ java coding problem - calculate the sales tax for different products
 # how to test
 - use a rest client to send a POST request to http://localhost:8080/receipt
 
-example request 1:
+sample request 1:
 ```json
 {
  "items": [
@@ -32,6 +32,30 @@ example request 1:
      "name": "book",
      "price": 0.85,
      "exempt": true
+    }
+  }
+ ]
+}
+```
+sample request 2:
+```json
+{
+ "items": [
+  {
+   "quantity": 1,
+   "product": {
+     "name": "box of chocolates",
+     "price": 10.00,
+     "exempt": true,
+     "imported": true
+    }
+  },
+  {
+   "quantity": 1,
+   "product": {
+     "name": "bottle of perfume",
+     "price": 47.50,
+     "imported": true
     }
   }
  ]
